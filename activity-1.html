@@ -1,0 +1,491 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie Hub - Online Food Ordering</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fff8f0;
+            color: #333;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: #e63946;
+            padding: 15px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        nav h1 {
+            font-size: 28px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5),
+                        rgba(0,0,0,0.5)),
+                        url("https://images.unsplash.com/photo-1504674900247-0877df9cc836");
+            background-size: cover;
+            background-position: center;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h2 {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 20px;
+        }
+
+        /* Restaurant Details */
+        .restaurant {
+            background: white;
+            width: 85%;
+            margin: -40px auto 30px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #ccc;
+            position: relative;
+        }
+
+        .restaurant h2 {
+            color: #e63946;
+            margin-bottom: 10px;
+        }
+
+        .restaurant p {
+            margin: 8px 0;
+        }
+
+        .rating {
+            color: #f4a261;
+            font-weight: bold;
+        }
+
+        /* Categories */
+        .categories {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .categories h2 {
+            margin-bottom: 20px;
+            color: #e63946;
+        }
+
+        .category-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .category-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: #ffd166;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .category-buttons button:hover {
+            background: #f4a261;
+            color: white;
+        }
+
+        /* Offers */
+        .offers {
+            width: 85%;
+            margin: 25px auto;
+            background: #2a9d8f;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .offers h2 {
+            margin-bottom: 8px;
+        }
+
+        /* Menu */
+        .menu {
+            width: 85%;
+            margin: 30px auto;
+        }
+
+        .menu h2 {
+            text-align: center;
+            color: #e63946;
+            margin-bottom: 25px;
+        }
+
+        .food-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* Food Cards */
+        .food-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px #ddd;
+            transition: 0.3s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 20px #bbb;
+        }
+
+        .food-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .food-info {
+            padding: 18px;
+        }
+
+        .food-info h3 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .food-info p {
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: #e63946;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .order-btn {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            float: right;
+        }
+
+        .order-btn:hover {
+            background: #b91c2b;
+        }
+
+        /* Reviews */
+        .reviews {
+            background: #f1faee;
+            padding: 40px 8%;
+            margin-top: 40px;
+        }
+
+        .reviews h2 {
+            text-align: center;
+            color: #e63946;
+            margin-bottom: 25px;
+        }
+
+        .review-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .review-card {
+            background: white;
+            width: 280px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px #ddd;
+        }
+
+        .review-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .stars {
+            color: #f4a261;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1d3557;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+
+            nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            nav ul {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .food-container {
+                grid-template-columns: 1fr;
+            }
+
+            .restaurant,
+            .menu,
+            .offers {
+                width: 92%;
+            }
+
+            .hero {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            nav h1 {
+                font-size: 23px;
+            }
+
+            nav ul {
+                font-size: 14px;
+            }
+
+            .hero h2 {
+                font-size: 27px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .category-buttons button {
+                padding: 8px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <h1>🍔 Foodie Hub</h1>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#offers">Offers</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div>
+            <h2>Delicious Food, Delivered Fast!</h2>
+            <p>Order your favourite meals from Foodie Hub</p>
+        </div>
+    </section>
+
+    <!-- Restaurant Details -->
+    <section class="restaurant">
+        <h2>Foodie Hub Restaurant</h2>
+        <p>🍴 Indian, Chinese, Fast Food & Desserts</p>
+        <p>📍 Vijayawada, Andhra Pradesh</p>
+        <p>⏰ Open: 10:00 AM - 11:00 PM</p>
+        <p class="rating">⭐ 4.7 / 5 | 2,500+ Reviews</p>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <h2>Menu Categories</h2>
+
+        <div class="category-buttons">
+            <button>🍕 Pizza</button>
+            <button>🍔 Burgers</button>
+            <button>🍛 Indian</button>
+            <button>🍜 Chinese</button>
+            <button>🍰 Desserts</button>
+            <button>🥤 Drinks</button>
+        </div>
+    </section>
+
+    <!-- Special Offers -->
+    <section class="offers" id="offers">
+        <h2>🔥 Special Offer</h2>
+        <p>Get <strong>30% OFF</strong> on orders above ₹499!</p>
+        <p>Use Coupon Code: <strong>FOOD30</strong></p>
+    </section>
+
+    <!-- Food Menu -->
+    <section class="menu" id="menu">
+        <h2>Popular Dishes</h2>
+
+        <div class="food-container">
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38"
+                     alt="Pizza">
+
+                <div class="food-info">
+                    <h3>Cheese Pizza</h3>
+                    <p>Loaded with cheese and fresh vegetables.</p>
+                    <span class="price">₹299</span>
+                    <button class="order-btn">Order Now</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd"
+                     alt="Burger">
+
+                <div class="food-info">
+                    <h3>Classic Burger</h3>
+                    <p>Juicy burger with crispy fries and sauce.</p>
+                    <span class="price">₹199</span>
+                    <button class="order-btn">Order Now</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398"
+                     alt="Biryani">
+
+                <div class="food-info">
+                    <h3>Chicken Biryani</h3>
+                    <p>Traditional aromatic Indian chicken biryani.</p>
+                    <span class="price">₹249</span>
+                    <button class="order-btn">Order Now</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1552611052-33e04de081de"
+                     alt="Noodles">
+
+                <div class="food-info">
+                    <h3>Veg Noodles</h3>
+                    <p>Delicious noodles with fresh vegetables.</p>
+                    <span class="price">₹179</span>
+                    <button class="order-btn">Order Now</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307"
+                     alt="Dessert">
+
+                <div class="food-info">
+                    <h3>Chocolate Dessert</h3>
+                    <p>Rich and creamy chocolate dessert.</p>
+                    <span class="price">₹149</span>
+                    <button class="order-btn">Order Now</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e"
+                     alt="Cold Drink">
+
+                <div class="food-info">
+                    <h3>Cold Drink</h3>
+                    <p>Refreshing chilled fruit drink.</p>
+                    <span class="price">₹99</span>
+                    <button class="order-btn">Order Now</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section class="reviews" id="reviews">
+        <h2>Customer Reviews</h2>
+
+        <div class="review-container">
+
+            <div class="review-card">
+                <h3>Tejaswi</h3>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"The biryani was delicious and delivery was very fast!"</p>
+            </div>
+
+            <div class="review-card">
+                <h3>Bindhu</h3>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Amazing pizza and very good packaging. Highly recommended."</p>
+            </div>
+
+            <div class="review-card">
+                <h3>Saranya</h3>
+                <div class="stars">⭐⭐⭐⭐</div>
+                <p>"Great food at reasonable prices. Will order again."</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Foodie Hub | Online Food Ordering Website</p>
+        <p>📞 Contact: 98765 43210</p>
+    </footer>
+
+</body>
+</html>
